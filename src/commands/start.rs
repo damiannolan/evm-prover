@@ -1,6 +1,7 @@
+use std::fs;
+
 use crate::config::config::{APP_HOME_DIR, CONFIG_FILE, Config};
 use crate::grpc::server::create_grpc_server;
-use std::fs;
 
 pub async fn start() -> anyhow::Result<()> {
     let config_path = dirs::home_dir()

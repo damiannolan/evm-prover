@@ -1,7 +1,9 @@
-use crate::config::config::{APP_HOME_DIR, CONFIG_FILE, Config};
-use clap::Subcommand;
 use std::fs;
 use std::path::PathBuf;
+
+use clap::Subcommand;
+
+use crate::config::config::{APP_HOME_DIR, CONFIG_FILE, Config};
 
 #[derive(Subcommand)]
 pub enum ConfigCommands {

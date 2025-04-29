@@ -1,7 +1,7 @@
+use clap::{Parser, Subcommand};
+
 use crate::commands::config::ConfigCommands;
 use crate::commands::version::VERSION;
-
-use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(name = "evm-prover", version = VERSION, about = "EVM Prover CLI", long_about = None)]
