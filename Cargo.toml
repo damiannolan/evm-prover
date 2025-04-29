@@ -7,6 +7,7 @@ edition = "2024"
 clap = { version = "4", features = ["derive"] }
 tokio = { version = "1", features = ["full"] }
 tonic = "0.10"
+tonic-reflection = "0.10"
 serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9"
 dirs = "5"

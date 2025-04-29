@@ -1,7 +1,6 @@
 use crate::config::config::{APP_HOME_DIR, CONFIG_FILE, Config};
+use crate::grpc::server::create_grpc_server;
 use std::fs;
-use tokio::net::TcpListener;
-use tonic::transport::Server;
 
 pub async fn start() -> anyhow::Result<()> {
     let config_path = dirs::home_dir()
@@ -13,13 +12,7 @@ pub async fn start() -> anyhow::Result<()> {
     let config: Config = serde_yaml::from_str(&config_yaml)?;
 
     println!("Starting gRPC server at {}", config.grpc_address);
-
-    let listener = TcpListener::bind(&config.grpc_address).await?;
-
-    Server::builder()
-        .add_service(tonic::codegen::server::Router::new()) // Placeholder for gRPC service
-        .serve_with_incoming(tokio_stream::wrappers::TcpListenerStream::new(listener))
-        .await?;
+    create_grpc_server(&config.grpc_address).await?;
 
     Ok(())
 }

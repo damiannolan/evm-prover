@@ -1,6 +1,5 @@
 use crate::config::config::{APP_HOME_DIR, CONFIG_FILE, Config};
 use std::fs;
-use std::path::PathBuf;
 
 pub fn init() -> anyhow::Result<()> {
     let home_dir = dirs::home_dir()
