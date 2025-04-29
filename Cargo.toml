@@ -3,10 +3,16 @@ name = "evm-prover"
 version = "0.1.0"
 edition = "2024"
 
+[build-dependencies]
+tonic-build = "0.10"
+prost-build = "0.12"
+walkdir = "2.5.0"
+
 [dependencies]
 clap = { version = "4", features = ["derive"] }
+prost = "0.12"
 tokio = { version = "1", features = ["full"] }
-tonic = "0.10"
+tonic = { version = "0.10", features = ["transport"] }
 tonic-reflection = "0.10"
 serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9"
