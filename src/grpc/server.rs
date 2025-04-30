@@ -6,11 +6,12 @@ use tokio_stream::wrappers::TcpListenerStream;
 use tonic::transport::Server;
 use tonic_reflection::server::Builder as ReflectionBuilder;
 
+use crate::config::config::Config;
 use crate::evm::prover::ProverService;
 use crate::proto::celestia::prover::v1::prover_server::ProverServer;
 
-pub async fn create_grpc_server(addr: &str) -> Result<()> {
-    let listener = TcpListener::bind(addr).await?;
+pub async fn create_grpc_server(config: Config) -> Result<()> {
+    let listener = TcpListener::bind(config.grpc_address).await?;
 
     let descriptor_bytes = fs::read("src/proto/descriptor.bin")?;
     let reflection_service = ReflectionBuilder::configure()

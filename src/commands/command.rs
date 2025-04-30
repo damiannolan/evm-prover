@@ -6,22 +6,22 @@ use crate::grpc::server::create_grpc_server;
 
 pub fn init() -> anyhow::Result<()> {
     let home_dir = dirs::home_dir()
-        .expect("Cannot find home directory")
+        .expect("cannot find home directory")
         .join(APP_HOME_DIR);
 
     if !home_dir.exists() {
-        println!("Creating home directory at {:?}", home_dir);
+        println!("creating home directory at {:?}", home_dir);
         fs::create_dir_all(&home_dir)?;
     }
 
     let config_path = home_dir.join(CONFIG_FILE);
     if !config_path.exists() {
-        println!("Creating default config at {:?}", config_path);
+        println!("creating default config at {:?}", config_path);
         let config = Config::default();
         let yaml = serde_yaml::to_string(&config)?;
         fs::write(config_path, yaml)?;
     } else {
-        println!("Config file already exists at {:?}", config_path);
+        println!("config file already exists at {:?}", config_path);
     }
 
     Ok(())
@@ -29,19 +29,19 @@ pub fn init() -> anyhow::Result<()> {
 
 pub async fn start() -> anyhow::Result<()> {
     let config_path = dirs::home_dir()
-        .expect("Cannot find home directory")
+        .expect("cannot find home directory")
         .join(APP_HOME_DIR)
         .join(CONFIG_FILE);
 
     let config_yaml = fs::read_to_string(&config_path)?;
     let config: Config = serde_yaml::from_str(&config_yaml)?;
 
-    println!("Starting gRPC server at {}", config.grpc_address);
-    create_grpc_server(&config.grpc_address).await?;
+    println!("starting gRPC server at {}", config.grpc_address);
+    create_grpc_server(config).await?;
 
     Ok(())
 }
 
 pub fn version() {
-    println!("evm-prover version: {}", VERSION);
+    println!("version: {}", VERSION);
 }
