@@ -18,9 +18,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
         .build_server(true)
         .build_client(true)
-        .file_descriptor_set_path("src/proto/descriptor.bin") // 🔥
-        .out_dir("src/proto") // or your desired output path
-        .compile(&proto_files, &["proto"])?; // "proto" is the root of includes
+        .file_descriptor_set_path("src/proto/descriptor.bin")
+        .out_dir("src/proto")
+        .compile(&proto_files, &["proto"])?;
 
     Ok(())
 }
