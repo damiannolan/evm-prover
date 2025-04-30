@@ -2,8 +2,8 @@ use std::path::PathBuf;
 use walkdir::WalkDir;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Collect all .proto files recursively under proto/
-    let proto_files: Vec<PathBuf> = WalkDir::new("proto")
+    // Collect all .proto files recursively under /proto/
+    let proto_files: Vec<PathBuf> = WalkDir::new("../../proto")
         .into_iter()
         .filter_map(|entry| {
             let path = entry.ok()?.path().to_path_buf();
@@ -20,7 +20,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build_client(true)
         .file_descriptor_set_path("src/proto/descriptor.bin")
         .out_dir("src/proto")
-        .compile(&proto_files, &["proto"])?;
+        .compile(&proto_files, &["../../proto"])?;
 
     Ok(())
 }
