@@ -1,11 +1,10 @@
 use clap::{Parser, Subcommand};
 
-use crate::commands::config::ConfigCommands;
-use crate::commands::version::VERSION;
+pub const VERSION: &str = "v0.1.0";
 
 #[derive(Parser)]
 #[command(name = "evm-prover", version = VERSION, about = "EVM Prover CLI", long_about = None)]
-pub struct Cli {
+pub struct CLI {
     #[command(subcommand)]
     pub command: Commands,
 }
@@ -20,10 +19,4 @@ pub enum Commands {
 
     /// Show the service version
     Version {},
-
-    /// Manage configuration
-    Config {
-        #[command(subcommand)]
-        config_command: ConfigCommands,
-    },
 }

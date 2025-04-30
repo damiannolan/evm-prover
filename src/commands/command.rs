@@ -1,6 +1,8 @@
 use std::fs;
 
+use crate::commands::cli::VERSION;
 use crate::config::config::{APP_HOME_DIR, CONFIG_FILE, Config};
+use crate::grpc::server::create_grpc_server;
 
 pub fn init() -> anyhow::Result<()> {
     let home_dir = dirs::home_dir()
@@ -23,4 +25,23 @@ pub fn init() -> anyhow::Result<()> {
     }
 
     Ok(())
+}
+
+pub async fn start() -> anyhow::Result<()> {
+    let config_path = dirs::home_dir()
+        .expect("Cannot find home directory")
+        .join(APP_HOME_DIR)
+        .join(CONFIG_FILE);
+
+    let config_yaml = fs::read_to_string(&config_path)?;
+    let config: Config = serde_yaml::from_str(&config_yaml)?;
+
+    println!("Starting gRPC server at {}", config.grpc_address);
+    create_grpc_server(&config.grpc_address).await?;
+
+    Ok(())
+}
+
+pub fn version() {
+    println!("evm-prover version: {}", VERSION);
 }
