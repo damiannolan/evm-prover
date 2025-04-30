@@ -1,3 +1,3 @@
 ## Overview
 
-The following is an example repository layout for the evm-prover service.
+The following is an example repository layout for the rust programs and services.
