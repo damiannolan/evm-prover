@@ -1,2 +1,2 @@
 [workspace]
-members = ["crates/evm-prover"]
+members = ["crates/evm-prover", "crates/sp1"]
